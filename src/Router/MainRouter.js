@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { BrowserRouter, Link, Route } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
 import LoginScreen from '../Screen/LoginScreen';
 import RegisterScreen from '../Screen/RegisterScreen';
 
