@@ -2,13 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import MainRouter from './Router/MainRouter'
 import * as serviceWorker from './serviceWorker';
-import 'semantic-ui-css/semantic.min.css'
+import 'semantic-ui-css/semantic.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Provider } from 'react-redux';
+import store from './Utilities/store';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <MainRouter />
-  </React.StrictMode>,
-  document.getElementById('root')
+	// <React.StrictMode>
+	<Provider store={store}>
+		<MainRouter />
+	</Provider>,
+	// </React.StrictMode>,
+	document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change
