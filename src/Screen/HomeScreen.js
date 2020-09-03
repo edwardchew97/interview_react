@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Theme from '../Config/Theme';
-import { Table, Button, Dimmer, Loader } from 'semantic-ui-react';
+import { Table, Button, Dimmer, Loader, Form } from 'semantic-ui-react';
 import api from '../Utilities/api';
 import cookie from '../Utilities/cookie';
 import store from '../Utilities/store';
@@ -8,14 +8,18 @@ import { actions } from '../Utilities/actions';
 
 export default function HomeScreen(){
     const [users,setUsers] = useState([])
+    const [name,setName] = useState('')
+    const [isLoading,setIsLoading] = useState(true)
 
     useEffect(() => {
         const fetchUsers = async() => {
-            const data = await api.listUsers()
+            const data = await api.listUsers(name)
             setUsers(data.data)
+            setIsLoading(false)
         }
-        fetchUsers()
-    },[])
+        let searching = setTimeout(()=>fetchUsers(),300)
+        return ()=>clearTimeout(searching)
+    },[name])
 
     function logout(){
         cookie.remove('access_token');
@@ -25,13 +29,28 @@ export default function HomeScreen(){
     return (
         <div style={Theme.screen}>
             {
-                users.length>0?
-                <Table celled>
+                isLoading?
+                <Dimmer active>
+                    <Loader />
+                </Dimmer>:
+                <Table celled fixed>
                     <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell>No.</Table.HeaderCell>
                             <Table.HeaderCell>Email</Table.HeaderCell>
                             <Table.HeaderCell>Name</Table.HeaderCell>
+                        </Table.Row>
+                        <Table.Row>
+                            <Table.HeaderCell>
+
+                            </Table.HeaderCell>
+                            <Table.HeaderCell>
+                            </Table.HeaderCell>
+                            <Table.HeaderCell>
+                                <Form.Input placeholder='Name Search' fluid value={name} 
+                                    onChange={(ev)=>setName(ev.target.value)}
+                                />
+                            </Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
 
@@ -46,10 +65,7 @@ export default function HomeScreen(){
                             )
                         })}
                     </Table.Body>
-                </Table>:
-                <Dimmer active>
-                    <Loader />
-                </Dimmer>
+                </Table>
             }
             <Button color='red' style={{float:'right'}}
                 onClick = {logout}
