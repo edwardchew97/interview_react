@@ -12,8 +12,8 @@ import cookie from '../Utilities/cookie';
 import { useSelector } from 'react-redux';
 
 export default function LoginScreen(){
-    const [email,setEmail] = useState('edwardchew975@gmail.com')
-    const [password,setPassword] = useState('testing12321A')
+    const [email,setEmail] = useState('')
+    const [password,setPassword] = useState('')
     const history = useHistory();
     const access_token = useSelector(state => state.access_token)
     const message = usePasswordValidation(password)

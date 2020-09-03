@@ -9,10 +9,10 @@ import api from '../Utilities/api';
 import { actions } from '../Utilities/actions';
 
 export default function RegisterScreen(){
-    const [email,setEmail] = useState('test@example.com')
-    const [password,setPassword] = useState('testing12321A')
-    const [name,setName] = useState('tester')
-    const [confirmPassword,setConfirmPassword] = useState('testing12321A')
+    const [email,setEmail] = useState('')
+    const [password,setPassword] = useState('')
+    const [name,setName] = useState('')
+    const [confirmPassword,setConfirmPassword] = useState('')
     const history = useHistory();
 
     const message = usePasswordValidation(password)
